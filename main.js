@@ -2,7 +2,7 @@ class Point {
     constructor (x, y) {
         this.x = x
         this.y = y
-    } 
+    }
 }
 
 function interpolation(pointA, pointB, t) {
@@ -22,41 +22,34 @@ function deCasteljau(points, t) {
     }
 }
 
-// Canvas
 const canvas = document.getElementById('canvas')
 const context = canvas.getContext('2d')
 const rect = canvas.getBoundingClientRect();
 
-// Curve Buttons
 const createNewCurveButton = document.getElementById('btn-create-curve')
 const deleteCurveButton = document.getElementById('btn-delete-curve')
 const nextCurveButton = document.getElementById('btn-next-curve')
 const previousCurveButton = document.getElementById('btn-previous-curve')
 
-// Point Buttons
 const createNewPointButton = document.getElementById('btn-create-point')
 const deletePointButton = document.getElementById('btn-delete-point')
 const editPointButton = document.getElementById('btn-edit-point')
 const nextPointButton = document.getElementById('btn-next-point')
 const previousPointButton = document.getElementById('btn-previous-point')
 
-// Check Boxes buttons and input 
 const checkBoxCurves = document.getElementById('btn-show-curves')
 const checkBoxPolygonal = document.getElementById('btn-show-polygonal')
 const checkBoxPoints = document.getElementById('btn-show-points')
 const evaluationsInput = document.getElementById('evaluations')
 
-// Aux variables
 const POINT_RADIUS = 2
 
-// Curves and points
 const curves = []
 var selectedCurve = -1
 var selectedPoint = []
 selectedPoint.push(0)
 var evaluationsNumber = 100
 
-// Canvas status control
 var canvasState = 0 // 1 - adding; 2 - replacing
 var click = false
 var apparentPoints = true
@@ -132,7 +125,6 @@ function reDraw() {
     }
 }
 
-// canvas event listeners
 canvas.addEventListener('mousedown', function(event) {
     click = true
     const elementRelativeX = event.clientX - rect.left;
@@ -165,7 +157,6 @@ canvas.addEventListener('mouseup', function(event) {
     reDraw()
 })
 
-// curve buttons event listeners
 createNewCurveButton.addEventListener('click', function(event) {
     if(selectedCurve === -1 || curves[selectedCurve]?.length > 1) {
         canvasState = 1
@@ -198,7 +189,6 @@ previousCurveButton.addEventListener('click', function(event) {
     }
 })
 
-// point buttons event listeners
 createNewPointButton.addEventListener('click', function(event) {
     canvasState = 1
 })
@@ -235,7 +225,6 @@ previousPointButton.addEventListener('click', function(event) {
     } 
 })
 
-// check box event listeners
 checkBoxCurves.addEventListener('click', function(event) {
     apparentCurves = !apparentCurves
     reDraw()
@@ -249,7 +238,6 @@ checkBoxPoints.addEventListener('click', function(event) {
     reDraw()
 })
 
-// evaluations event listener
 evaluationsInput.addEventListener('keyup', function(event) {
     const input = event.target.value
     evaluationsNumber = parseInt(input)
