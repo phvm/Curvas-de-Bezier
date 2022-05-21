@@ -48,15 +48,15 @@ const curves = []
 var selectedCurve = -1
 var selectedPoint = []
 selectedPoint.push(0)
+
 var evaluationsNumber = 100
 
-var canvasState = 0 // 1 - adding; 2 - replacing
+var canvasState = 0
 var click = false
 var apparentPoints = true
 var apparentPolygonal = true
 var apparentCurves = true
 
-// Draw functions
 function drawPoint(pointA) {
     context.beginPath()
     context.arc(pointA.x, pointA.y, POINT_RADIUS, 0, 2*Math.PI)
@@ -67,7 +67,7 @@ function drawLine(pointA, pointB) {
     context.beginPath()
     context.lineTo(pointA.x, pointA.y)
     context.lineTo(pointB.x, pointB.y)
-    context.strokeStyle = '3px'
+    context.strokeStyle = '8px'
     context.stroke()
 }
 
@@ -139,6 +139,7 @@ canvas.addEventListener('mousedown', function(event) {
     }
     reDraw()
 })
+
 canvas.addEventListener('mousemove', function(event) {
     if(click) {
         if(canvasState === 2) {
@@ -152,6 +153,7 @@ canvas.addEventListener('mousemove', function(event) {
     }
     reDraw()
 })
+
 canvas.addEventListener('mouseup', function(event) {
     click = false
     reDraw()
@@ -166,6 +168,7 @@ createNewCurveButton.addEventListener('click', function(event) {
         selectedCurve++
     }
 })
+
 deleteCurveButton.addEventListener('click', function(event) {
     if(curves.length > 0) {
         curves.splice(selectedCurve, 1)
@@ -176,12 +179,14 @@ deleteCurveButton.addEventListener('click', function(event) {
         reDraw()
     } 
 })
+
 nextCurveButton.addEventListener('click', function(event) {
     if(selectedCurve < curves.length - 1) {
         selectedCurve++
         reDraw()
     }
 })
+
 previousCurveButton.addEventListener('click', function(event) {
     if(selectedCurve > 0) {
         selectedCurve--
@@ -192,11 +197,11 @@ previousCurveButton.addEventListener('click', function(event) {
 createNewPointButton.addEventListener('click', function(event) {
     canvasState = 1
 })
+
 deletePointButton.addEventListener('click', function(event) {
     if(curves[selectedCurve].length > 0) {
         curves[selectedCurve].splice(selectedPoint[selectedCurve], 1)
         if(curves[selectedCurve].length === 0) {
-            console.log('entrou aqui')
             curves.splice(selectedCurve, 1)
             selectedPoint.splice(selectedCurve, 1)
             if(selectedCurve > 0) {
@@ -209,15 +214,18 @@ deletePointButton.addEventListener('click', function(event) {
         reDraw()
     } 
 })
+
 editPointButton.addEventListener('click', function(event) {
     canvasState = 2
 })
+
 nextPointButton.addEventListener('click', function(event) {
     if(selectedPoint[selectedCurve] < curves[selectedCurve].length - 1) {
         selectedPoint[selectedCurve]++
         reDraw()
     } 
 })
+
 previousPointButton.addEventListener('click', function(event) {
     if(selectedPoint[selectedCurve] > 0) {
         selectedPoint[selectedCurve]--
@@ -229,10 +237,12 @@ checkBoxCurves.addEventListener('click', function(event) {
     apparentCurves = !apparentCurves
     reDraw()
 })
+
 checkBoxPolygonal.addEventListener('click', function(event) {
     apparentPolygonal = !apparentPolygonal
     reDraw()
 })
+
 checkBoxPoints.addEventListener('click', function(event) {
     apparentPoints = !apparentPoints
     reDraw()
